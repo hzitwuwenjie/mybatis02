@@ -14,7 +14,7 @@ public interface GoodsInfoDao {
 
     /**
      * 实现商品的分页查询
-     * @param page
+     * @param startrow
      * @param rowcount
      * @return
      */
