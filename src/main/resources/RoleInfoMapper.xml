@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="cn.edu.jxufe.dao.RoleInfoDao">
+
+<!--<select id="findroleByRid" parameterType="int" resultMap="roleinfoMap" >
+      SELECT * FROM `user`JOIN `roleinfo` ON `user`.`roleid`=`roleinfo`.`roleid`
+      WHERE `roleinfo`.roleid=#{roleid}
+</select>-->
+
+    <select id="findroleByRid" parameterType="int" resultMap="roleinfoMap" >
+        SELECT * from roleinfo where roleid=#{roleid}
+    </select>
+
+    <select id="finduserbyroleid" parameterType="int" resultMap="UserInfoMap" >
+        SELECT * from `user` where roleid=#{roleid}
+    </select>
+
+    <resultMap id="UserInfoMap" type="Userinfo">
+        <id column="u_id" property="uid"></id>
+        <result column="u_name" property="uname" ></result>
+        <result column="password" property="password"></result>
+        <result column="roleid" property="roleid"></result>
+        <result column="create_time" property="createtime"></result>
+        <result column="score" property="score"></result>
+    </resultMap>
+    <resultMap id="roleinfoMap" type="cn.edu.jxufe.entity.RoleInfo">
+        <id column="roleid" property="roleid"></id>
+        <result column="rolename" property="roleName"></result>
+        <collection property="userinfoList" select="finduserbyroleid" column="roleid">
+        </collection>
+    </resultMap>
+
+</mapper>
